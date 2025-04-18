@@ -19,7 +19,7 @@ Start::~Start(){
 
 void Start::initialise() {
 
-    GLuint map_texture_id = Utility::load_texture("assets/tileset.png");
+    GLuint map_texture_id = Utility::load_texture("assets/world_tileset.png");
     m_game_state.map = new Map(1, 1, MENU, map_texture_id, 1.0f, 4, 1);
     m_game_state.next_scene_id = -1;
 

@@ -16,7 +16,6 @@
 #define LEVEL_HEIGHT 8
 
 constexpr char SPRITESHEET_FILEPATH[] = "assets/piplupstep.png",
-           PLATFORM_FILEPATH[]    = "assets/platformPack_tile027.png",
            ENEMY_FILEPATH[]       = "assets/hariyama_push.png",
            ENEMY2_FILEPATH[]      = "assets/rhyperior walk.png",
            ENEMY3_FILEPATH[]      = "assets/s.png",
@@ -27,13 +26,13 @@ unsigned int LEVEL3_DATA[LEVEL_HEIGHT * LEVEL_WIDTH] =
 {
 
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    0, 1, 1, 0, 0, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 1,
-    0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0,
-    0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 1, 1, 1, 0, 0, 0, 0, 0, 1, 0, 0, 1, 1, 1, 1, 1, 1, 1,
-    0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 1,
+    0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    0, 5, 5, 0, 0, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+    0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 0, 5, 5, 5, 5,
+    0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 5, 5, 5, 0, 0, 0, 0, 0, 5, 0, 0, 5, 5, 5, 5, 5, 5, 5,
+    0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 0, 0, 0, 5, 0, 0, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 0, 0, 5, 5, 5, 5, 5, 5,
     0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 1, 0, 0, 0, 1, 1, 1, 1, 1, 7, 7, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
+    5, 5, 5, 5, 5, 5, 5, 5, 0, 0, 0, 0, 0, 5, 5, 0, 0, 0, 5, 0, 0, 0, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5, 5,
 
    
 };
@@ -58,6 +57,8 @@ void LevelC::initialise()
 
     GLuint player_texture_id = Utility::load_texture(SPRITESHEET_FILEPATH);
 
+    GLuint youwin = Utility::load_texture("assets/sprites.png");
+    GLuint youlose = Utility::load_texture("assets/loses.png");
     m_start_screen_texture_id = Utility::load_texture("assets/bro.jpg");
 
 
@@ -99,7 +100,14 @@ void LevelC::initialise()
     );
     
     //init pos x 5.0f y -4.0f
-    m_game_state.player->set_position(glm::vec3(32.0f, -4.0f, 0.0f));
+    m_game_state.player->set_position(glm::vec3(32.0f, -6.0f, 0.0f));
+    m_game_state.player->set_positionstart(glm::vec3(31.0f, -4.2f, 0.0f));
+    m_game_state.player->set_texture_win(youwin);
+    m_game_state.player->set_texture_lose(youlose);
+
+
+
+
 //    m_game_state.player->set_position(glm::vec3(25.0f, -1.0f, 0.0f));
 
     // Jumping
@@ -128,13 +136,14 @@ void LevelC::initialise()
             4,                 // Animation columns
             8,                 // Animation rows
             0.75f,             // Width
-            0.60f,             // Height
+            1.0f,             // Height
             ENEMY              // Entity type
         );
         m_game_state.enemies[i].set_scale(glm::vec3(2.0f, 2.0f, 1.0f));
         m_game_state.enemies[i].set_ai_type(BIG_BOSS);
         m_game_state.enemies[i].set_ai_state(IDLE);
         m_game_state.enemies[i].set_position(glm::vec3(38.0f, -6.2f, 0.0f));
+        m_game_state.enemies[i].set_positionstart(glm::vec3(38.0f, -6.2f, 0.0f));
 
     }
 
@@ -165,6 +174,9 @@ void LevelC::initialise()
     //  Sound Effect by <a href="https://pixabay.com/users/driken5482-45721595/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=236683">Driken Stan</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=236683">Pixabay</a>
 
         m_game_state.jump_sfx = Mix_LoadWAV("assets/jump.mp3");
+        m_game_state.hurt_sfx = Mix_LoadWAV("assets/lobotomy.mp3");
+        m_game_state.win_sfx = Mix_LoadWAV("assets/win.mp3");
+
 }
 
 void LevelC::update(float delta_time)

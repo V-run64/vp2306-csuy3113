@@ -26,6 +26,7 @@ private:
     // ————— TRANSFORMATIONS ————— //
     glm::vec3 m_movement;
     glm::vec3 m_position;
+    glm::vec3 m_start_pos;
     glm::vec3 m_scale;
     glm::vec3 m_velocity;
     glm::vec3 m_acceleration;
@@ -37,9 +38,13 @@ private:
     
     bool m_is_jumping;
     bool is_next;
+    bool is_gameover = false;
+    bool is_win = false;
 
     // ————— TEXTURES ————— //
     GLuint    m_texture_id;
+    GLuint    m_win_texture;
+    GLuint    m_lose_texture;
     GLuint    m_jump_texture_id;
 
     // ————— ANIMATION ————— //
@@ -125,6 +130,7 @@ public:
     AIState    const get_ai_state()       const { return m_ai_state;      };
     float const get_jumping_power() const { return m_jumping_power; }
     glm::vec3 const get_position()     const { return m_position; }
+    glm::vec3 const get_positionstart()     const { return m_start_pos; }
     glm::vec3 const get_velocity()     const { return m_velocity; }
     glm::vec3 const get_acceleration() const { return m_acceleration; }
     glm::vec3 const get_movement()     const { return m_movement; }
@@ -137,6 +143,8 @@ public:
     bool      const get_collided_left() const { return m_collided_left; }
     bool      const get_next_scene() const {return is_next;}
     int const get_hp() const {return hp;}
+    bool const get_gameover() const {return is_gameover;}
+    bool const get_win() const {return is_win;}
     
     
     void activate()   { m_is_active = true;  };
@@ -146,11 +154,14 @@ public:
     void const set_ai_type(AIType new_ai_type){ m_ai_type = new_ai_type;};
     void const set_ai_state(AIState new_state){ m_ai_state = new_state;};
     void const set_position(glm::vec3 new_position) { m_position = new_position; }
+    void const set_positionstart(glm::vec3 new_position) { m_start_pos = new_position;}
     void const set_velocity(glm::vec3 new_velocity) { m_velocity = new_velocity; }
     void const set_acceleration(glm::vec3 new_acceleration) { m_acceleration = new_acceleration; }
     void const set_movement(glm::vec3 new_movement) { m_movement = new_movement; }
     void const set_scale(glm::vec3 new_scale) { m_scale = new_scale; }
     void const set_texture_id(GLuint new_texture_id) { m_texture_id = new_texture_id; }
+    void const set_texture_win(GLuint new_texture_id) { m_win_texture = new_texture_id; }
+    void const set_texture_lose(GLuint new_texture_id) { m_lose_texture = new_texture_id; }
     void const set_speed(float new_speed) { m_speed = new_speed; }
     void const set_animation_cols(int new_cols) { m_animation_cols = new_cols; }
     void const set_animation_rows(int new_rows) { m_animation_rows = new_rows; }
@@ -162,7 +173,9 @@ public:
     void const set_height(float new_height) {m_height = new_height; }
     void const set_hp(int new_hp) {hp = new_hp;}
     void const set_next_scene(bool is_new_scene) {is_next = is_new_scene;}
-
+    void const die();
+    void const set_gameover(){if(hp==0){hp ==0; is_gameover = true; set_texture_id(m_lose_texture);}}
+    void const set_win(){is_win = true; set_texture_id(m_win_texture);}
     // Setter for m_walking
     void set_walking(int walking[4][8])
     {

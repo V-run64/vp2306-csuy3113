@@ -8,6 +8,8 @@
 
 /* Begin PBXBuildFile section */
 		79431DA92DA47E3500B152CA /* LevelC.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79431DA82DA47E3300B152CA /* LevelC.cpp */; };
+		79431DB22DA5CD3400B152CA /* Effects.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79431DB12DA5CD3300B152CA /* Effects.cpp */; };
+		79431DB52DA5D78700B152CA /* File.m in Sources */ = {isa = PBXBuildFile; fileRef = 79431DB42DA5D78700B152CA /* File.m */; };
 		79D77D3E2DA1F9D200D13AB2 /* Start.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79D77D3D2DA1F9CF00D13AB2 /* Start.cpp */; };
 		79D77D412DA2088D00D13AB2 /* LevelB.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 79D77D402DA2088C00D13AB2 /* LevelB.cpp */; };
 		8401114628864A3000A4D23F /* Map.cpp in Sources */ = {isa = PBXBuildFile; fileRef = 8401114428864A3000A4D23F /* Map.cpp */; };
@@ -43,6 +45,10 @@
 /* Begin PBXFileReference section */
 		79431DA72DA47DE800B152CA /* LevelC.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelC.h; sourceTree = "<group>"; };
 		79431DA82DA47E3300B152CA /* LevelC.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = LevelC.cpp; sourceTree = "<group>"; };
+		79431DB02DA5CD1800B152CA /* Effects.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Effects.h; sourceTree = "<group>"; };
+		79431DB12DA5CD3300B152CA /* Effects.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Effects.cpp; sourceTree = "<group>"; };
+		79431DB32DA5D76E00B152CA /* Untitled.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Untitled.h; sourceTree = "<group>"; };
+		79431DB42DA5D78700B152CA /* File.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = File.m; sourceTree = "<group>"; };
 		79D77D3C2DA1F9A400D13AB2 /* Start.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Start.h; sourceTree = "<group>"; };
 		79D77D3D2DA1F9CF00D13AB2 /* Start.cpp */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.cpp.cpp; path = Start.cpp; sourceTree = "<group>"; };
 		79D77D3F2DA2087800D13AB2 /* LevelB.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = LevelB.h; sourceTree = "<group>"; };
@@ -115,12 +121,16 @@
 				DBDF1B5C2323DE8D007CECB1 /* shaders */,
 				DBDF1B5A2323DE8D007CECB1 /* stb_image.h */,
 				DBDF1B522323DE3F007CECB1 /* main.cpp */,
+				79431DB02DA5CD1800B152CA /* Effects.h */,
+				79431DB12DA5CD3300B152CA /* Effects.cpp */,
 				79D77D3C2DA1F9A400D13AB2 /* Start.h */,
 				79D77D3D2DA1F9CF00D13AB2 /* Start.cpp */,
 				8493D151286BFEC300217CD6 /* Entity.cpp */,
+				79431DB32DA5D76E00B152CA /* Untitled.h */,
 				8493D152286BFEC300217CD6 /* Entity.h */,
 				79431DA72DA47DE800B152CA /* LevelC.h */,
 				79431DA82DA47E3300B152CA /* LevelC.cpp */,
+				79431DB42DA5D78700B152CA /* File.m */,
 				8401114428864A3000A4D23F /* Map.cpp */,
 				8401114528864A3000A4D23F /* Map.h */,
 				79D77D3F2DA2087800D13AB2 /* LevelB.h */,
@@ -207,6 +217,8 @@
 				849F079B2888D13900816376 /* Utility.cpp in Sources */,
 				849F079E2888DDF200816376 /* Scene.cpp in Sources */,
 				DBDF1B532323DE3F007CECB1 /* main.cpp in Sources */,
+				79431DB22DA5CD3400B152CA /* Effects.cpp in Sources */,
+				79431DB52DA5D78700B152CA /* File.m in Sources */,
 				79431DA92DA47E3500B152CA /* LevelC.cpp in Sources */,
 				8401114628864A3000A4D23F /* Map.cpp in Sources */,
 				849F07A12888DF1D00816376 /* LevelA.cpp in Sources */,

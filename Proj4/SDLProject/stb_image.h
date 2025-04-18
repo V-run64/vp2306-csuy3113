@@ -1361,7 +1361,7 @@ static unsigned char *stbi__convert_format(unsigned char *data, int img_n, int r
       // convert source image with img_n components to one with req_comp components;
       // avoid switch per pixel, so use switch per scanline and massive macros
       switch (COMBO(img_n, req_comp)) {
-         CASE(1,2) dest[0]=src[0], dest[1]=255; break;
+         CASE(1,2) dest[0]=src[0] , dest[1]=255; break;
          CASE(1,3) dest[0]=dest[1]=dest[2]=src[0]; break;
          CASE(1,4) dest[0]=dest[1]=dest[2]=src[0], dest[3]=255; break;
          CASE(2,1) dest[0]=src[0]; break;

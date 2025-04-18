@@ -6,12 +6,19 @@
 #endif
 
 #define GL_GLEXT_PROTOTYPES 1
+#include <SDL_mixer.h>
 #include <SDL.h>
 #include <SDL_opengl.h>
 #include "glm/mat4x4.hpp"
 #include "glm/gtc/matrix_transform.hpp"
 #include "ShaderProgram.h"
 #include "Entity.h"
+
+Mix_Chunk *hurt_sfx = Mix_LoadWAV("assets/lobotomy.mp3");;
+Mix_Chunk *win_sfx;
+
+
+
 
 void Entity::ai_activate(Entity *player)
 {
@@ -50,6 +57,9 @@ void Entity::ai_walk()
 }
 void Entity::ai_crabominable(Entity *player)
 {
+    if(check_collision(player) || get_collided_top())
+        player->die();
+
     switch (m_ai_state) {
         case IDLE:
             if (glm::distance(m_position, player->get_position()) < 3.0f) m_ai_state = WALKING;
@@ -74,6 +84,8 @@ void Entity::ai_crabominable(Entity *player)
 }
 
 
+
+
 void Entity::ai_charger(Entity* player)
 {
     static glm::vec3 charge_start_position;
@@ -82,6 +94,9 @@ void Entity::ai_charger(Entity* player)
     
     m_acceleration.y = 0;
 
+    if(check_collision(player))
+        player->die();
+    
     switch (m_ai_state) {
         case IDLE:
             if (glm::distance(m_position.x, player->get_position().x) < 4.0f &&
@@ -89,7 +104,7 @@ void Entity::ai_charger(Entity* player)
                 charge_start_position = m_position;
                 charge_direction = (m_position.x > player->get_position().x) ? -1.0f : 1.0f;
                 m_ai_state = ATTACKING;
-                has_collided = false;
+              
             }
             break;
 
@@ -98,17 +113,6 @@ void Entity::ai_charger(Entity* player)
             m_movement.x = 8.0f * charge_direction;
             (charge_direction < 0) ? face_left() : face_right();
             
-            // Handle wall collision and destruction
-            if ((charge_direction < 0 && m_collided_left) ||
-                (charge_direction > 0 && m_collided_right)) {
-                if (!has_collided) {
-                    destroy_wall_in_direction(charge_direction);
-                    has_collided = true;
-                    // Reset collision flags to continue movement
-                    m_collided_left = false;
-                    m_collided_right = false;
-                }
-            }
             
             // Transition conditions
             if (glm::distance(m_position, charge_start_position) > 9.0f) {
@@ -137,10 +141,12 @@ void Entity::ai_charger2(Entity* player)
 {
     static glm::vec3 charge_start_position;
     static float charge_direction = 1.0f; // Default to right
-    static bool has_collided = false;
     
     m_acceleration.y = 0;
 
+    if(check_collision(player))
+        player->die();
+    
     switch (m_ai_state) {
         case IDLE:
             if (glm::distance(m_position.x, player->get_position().x) < 5.0f)
@@ -148,7 +154,6 @@ void Entity::ai_charger2(Entity* player)
                 charge_start_position = m_position;
                 charge_direction = (m_position.x > player->get_position().x) ? -1.0f : 1.0f;
                 m_ai_state = ATTACKING;
-                has_collided = false;
             }
             break;
 
@@ -156,15 +161,7 @@ void Entity::ai_charger2(Entity* player)
             // Move in committed direction
             m_movement.x = 6.0f * charge_direction;
             (charge_direction < 0) ? face_left() : face_right();
-            
-            // Handle wall collision and destruction
-            if ((charge_direction < 0 && m_collided_left) ||
-                (charge_direction > 0 && m_collided_right)) {
-            
-                    m_ai_state = WALKING;
-                
-            }
-            
+             
             // Transition conditions
             if (glm::distance(m_position, charge_start_position) > 10.0f) {
                 m_ai_state = WALKING;
@@ -196,7 +193,9 @@ void Entity::ai_boss(Entity* player)
     float return_direction = (m_position.x > charge_start_position.x) ? -1.0f : 1.0f;
 
     m_acceleration.y = 0;
-
+    if(check_collision(player))
+        player->die();
+    
     switch (m_ai_state) {
             
             
@@ -461,6 +460,7 @@ Entity::~Entity() { }
 void Entity::draw_sprite_from_texture_atlas(ShaderProgram* program, GLuint texture_id, int index)
 {
     // Step 1: Calculate the UV location of the indexed frame
+    
     float u_coord = (float)(index % m_animation_cols) / (float)m_animation_cols;
     float v_coord = (float)(index / m_animation_cols) / (float)m_animation_rows;
 
@@ -644,10 +644,36 @@ void const Entity::check_collision_x(Map *map)
         m_collided_right = true;
     }
 }
+
+void const Entity::die()
+{
+    hp--;
+    set_position(m_start_pos);
+    Mix_PlayChannel(-1, hurt_sfx, 0);
+    
+}
 void Entity::update(float delta_time, Entity *player, Entity *collidable_entities, int collidable_entity_count, Map *map)
 {
     if (!m_is_active) return;
  
+    
+    
+    if(m_entity_type == PLAYER && check_collision(collidable_entities))
+    {
+        die();
+        printf("died");
+        printf("%d",hp);
+        if(hp == 0)
+        {
+            set_gameover();
+        }
+        if(is_gameover)
+        {
+            printf("cooked");
+        }
+    }
+    
+    
     m_collided_top    = false;
     m_collided_bottom = false;
     m_collided_left   = false;
@@ -662,6 +688,7 @@ void Entity::update(float delta_time, Entity *player, Entity *collidable_entitie
             if(player->hp>0)
             {
                 player->hp--;
+                
             }
         }
         

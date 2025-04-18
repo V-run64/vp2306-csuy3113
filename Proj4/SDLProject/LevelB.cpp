@@ -13,7 +13,6 @@
 #define LEVEL_HEIGHT 8
 
 constexpr char SPRITESHEET_FILEPATH[] = "assets/piplupstep.png",
-           PLATFORM_FILEPATH[]    = "assets/platformPack_tile027.png",
            ENEMY_FILEPATH[]       = "assets/hariyama_push.png",
            ENEMY2_FILEPATH[]      = "assets/rhyperior walk.png",
            ENEMY3_FILEPATH[]      = "assets/s.png",
@@ -26,9 +25,9 @@ unsigned int LEVEL2_DATA[LEVEL_HEIGHT * LEVEL_WIDTH] =
     1, 1, 1, 1, 1, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 7,
-    1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
-    1, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
-    1, 1, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0,
+    1, 0, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 1, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0,
+    1, 1, 0, 1, 0, 0, 0, 1, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 0, 0, 0, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 1, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
     1, 1, 1, 1, 1, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 0, 0, 0, 1, 1, 0, 0, 1, 1, 1, 1, 1, 7, 7, 7, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0,
 
@@ -54,7 +53,7 @@ void LevelB::initialise()
     m_game_state.map = new Map(LEVEL_WIDTH, LEVEL_HEIGHT, LEVEL2_DATA, map_texture_id, 1.0f, 12, 1);
 
     GLuint player_texture_id = Utility::load_texture(SPRITESHEET_FILEPATH);
-
+    GLuint youlose = Utility::load_texture("assets/loses.png");
     m_start_screen_texture_id = Utility::load_texture("assets/bro.jpg");
 
 
@@ -97,6 +96,9 @@ void LevelB::initialise()
     
     //init pos x 5.0f y -4.0f
     m_game_state.player->set_position(glm::vec3(2.0f, -4.0f, 0.0f));
+    m_game_state.player->set_positionstart(glm::vec3(2.0f, -4.0f, 0.0f));
+    m_game_state.player->set_texture_lose(youlose);
+
 //    m_game_state.player->set_position(glm::vec3(25.0f, -1.0f, 0.0f));
 
     // Jumping
@@ -126,12 +128,13 @@ void LevelB::initialise()
             4,                 // Animation columns
             8,                 // Animation rows
             0.75f,             // Width
-            0.60f,             // Height
+            0.85f,             // Height
             ENEMY              // Entity type
         );
         m_game_state.enemies[i].set_scale(glm::vec3(2.0f, 2.0f, 1.0f));
         m_game_state.enemies[i].set_ai_type(GUARD);
         m_game_state.enemies[i].set_ai_state(IDLE);
+        
     }
 
     
@@ -139,6 +142,7 @@ void LevelB::initialise()
    
     m_game_state.enemies[0].set_position(glm::vec3(5.0f, -4.0f, 0.0f));
     m_game_state.enemies[0].set_movement(glm::vec3(0.0f));
+    m_game_state.enemies[0].set_velocity(glm::vec3(2.0f, 0.0f, 0.0f));
     m_game_state.enemies[0].set_acceleration(glm::vec3(0.0f, -9.81f*2, 0.0f));
     m_game_state.enemies[1].set_ai_type(CHARGER2);
     m_game_state.enemies[1].set_movement(glm::vec3(0.0f));
@@ -180,7 +184,7 @@ void LevelB::initialise()
     Mix_PlayMusic(m_game_state.bgm, -1);
     Mix_VolumeMusic(0.0f);
     
-    
+     
     Mix_Music* bgm = m_game_state.bgm;
     if (!bgm) {
         std::cerr << "Failed to load music! Error: " << Mix_GetError() << std::endl;
@@ -193,6 +197,7 @@ void LevelB::initialise()
     //  Sound Effect by <a href="https://pixabay.com/users/driken5482-45721595/?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=236683">Driken Stan</a> from <a href="https://pixabay.com/sound-effects//?utm_source=link-attribution&utm_medium=referral&utm_campaign=music&utm_content=236683">Pixabay</a>
 
         m_game_state.jump_sfx = Mix_LoadWAV("assets/jump.mp3");
+        m_game_state.hurt_sfx = Mix_LoadWAV("assets/lobotomy.mp3");
 }
 
 void LevelB::update(float delta_time)
