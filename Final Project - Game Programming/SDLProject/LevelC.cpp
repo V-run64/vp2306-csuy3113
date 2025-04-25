@@ -381,7 +381,7 @@ void LevelC::render(ShaderProgram *g_shader_program)
     if(m_game_state.player->get_position().x >= 26.0f && m_game_state.player->get_position().x <= 30.0f )
     {
         
-        Utility::draw_text(g_shader_program, m_font_texture_id2, std::string("press 1 to scare"), 1.0f, -0.65f, glm::vec3(m_game_state.player->get_position().x-4, m_game_state.player->get_position().y + 1.0f, 0.0f));
+        Utility::draw_text(g_shader_program, m_font_texture_id2, std::string("press 2 to scare"), 1.0f, -0.65f, glm::vec3(m_game_state.player->get_position().x-4, m_game_state.player->get_position().y + 1.0f, 0.0f));
         Utility::draw_text(g_shader_program, m_font_texture_id2, std::string("ghost types as obstagoon"), 1.0f, -0.65f, glm::vec3(m_game_state.player->get_position().x-4, m_game_state.player->get_position().y - 1.0f, 0.0f));
         Utility::draw_text(g_shader_program, m_font_texture_id2, std::string("sword forme aegislash"), 1.0f, -0.65f, glm::vec3(m_game_state.player->get_position().x-4, m_game_state.player->get_position().y - 2.0f, 0.0f));
         Utility::draw_text(g_shader_program, m_font_texture_id2, std::string("aren't afraid though"), 1.0f, -0.65f, glm::vec3(m_game_state.player->get_position().x-4, m_game_state.player->get_position().y - 3.0f, 0.0f));
